@@ -1,26 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BananaSwarm</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwindcss.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            background: 'hsl(240 10% 3.9%)',
+            foreground: 'hsl(0 0% 98%)',
+            card: 'hsl(240 10% 3.9%)',
+            'card-foreground': 'hsl(0 0% 98%)',
+            muted: 'hsl(240 3.7% 15.9%)',
+            'muted-foreground': 'hsl(240 5% 64.9%)',
+            border: 'hsl(240 3.7% 15.9%)',
+            accent: 'hsl(47.9 95.8% 53.1%)',
+            'accent-foreground': 'hsl(240 10% 3.9%)',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #1a1a2e;
-      color: #ffe135;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    body { background: hsl(240 10% 3.9%); }
+    .timeline-line { width: 2px; background: hsl(240 3.7% 15.9%); }
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: hsl(47.9 95.8% 53.1%);
+      border: 2px solid hsl(240 10% 3.9%);
+      box-shadow: 0 0 0 2px hsl(240 3.7% 15.9%);
     }
-    h1 {
-      font-size: 3rem;
+    .event-card {
+      background: hsl(240 10% 5.5%);
+      border: 1px solid hsl(240 3.7% 15.9%);
+      border-radius: 0.75rem;
+      transition: border-color 0.2s;
     }
+    .event-card:hover { border-color: hsl(240 5% 25%); }
+    .bot-badge {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      background: hsl(240 3.7% 15.9%);
+      color: hsl(47.9 95.8% 53.1%);
+      font-weight: 500;
+    }
+    .link-tag {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.375rem;
+      background: hsl(240 3.7% 15.9%);
+      color: hsl(240 5% 64.9%);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .link-tag:hover { color: hsl(0 0% 98%); }
   </style>
 </head>
-<body>
-  <h1>BananaSwarm</h1>
+<body class="min-h-screen text-foreground antialiased">
+  <div class="max-w-2xl mx-auto px-4 py-16">
+    <header class="mb-16 text-center">
+      <h1 class="text-4xl font-bold tracking-tight" style="color: hsl(47.9 95.8% 53.1%);">BananaSwarm</h1>
+      <p class="mt-2 text-sm" style="color: hsl(240 5% 64.9%);">Event timeline</p>
+    </header>
+
+    <div id="timeline" class="relative">
+      <div class="timeline-line absolute left-[5px] top-0 bottom-0 md:left-1/2 md:-translate-x-1/2"></div>
+      <div id="events" class="space-y-8"></div>
+    </div>
+
+    <div id="empty" class="hidden text-center py-16" style="color: hsl(240 5% 64.9%);">
+      No events yet.
+    </div>
+  </div>
+
+  <script>
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', {
+        year: 'numeric', month: 'short', day: 'numeric'
+      });
+    }
+
+    function formatTime(iso) {
+      const d = new Date(iso);
+      return d.toLocaleTimeString('en-US', {
+        hour: 'numeric', minute: '2-digit'
+      });
+    }
+
+    function renderEvent(event) {
+      const links = (event.links || [])
+        .map(l => `<a href="${l.url}" target="_blank" rel="noopener" class="link-tag">${l.label}</a>`)
+        .join(' ');
+
+      return `
+        <div class="relative pl-8 md:pl-0 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-6 items-start">
+          <div class="hidden md:block text-right pr-4" style="color: hsl(240 5% 64.9%);">
+            <div class="text-sm font-medium">${formatDate(event.timestamp)}</div>
+            <div class="text-xs">${formatTime(event.timestamp)}</div>
+          </div>
+          <div class="absolute left-0 top-1 md:relative md:left-auto md:top-auto flex justify-center">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="event-card p-4">
+            <div class="md:hidden mb-2 text-xs" style="color: hsl(240 5% 64.9%);">
+              ${formatDate(event.timestamp)} &middot; ${formatTime(event.timestamp)}
+            </div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="bot-badge">${event.bot}</span>
+              <h3 class="text-sm font-semibold" style="color: hsl(0 0% 98%);">${event.title}</h3>
+            </div>
+            <p class="text-sm mt-2" style="color: hsl(240 5% 64.9%);">${event.description}</p>
+            ${links ? `<div class="flex flex-wrap gap-2 mt-3">${links}</div>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    fetch('events.json')
+      .then(r => r.json())
+      .then(events => {
+        events.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        const container = document.getElementById('events');
+        if (events.length === 0) {
+          document.getElementById('empty').classList.remove('hidden');
+          document.getElementById('timeline').classList.add('hidden');
+          return;
+        }
+        container.innerHTML = events.map(renderEvent).join('');
+      })
+      .catch(() => {
+        document.getElementById('empty').classList.remove('hidden');
+        document.getElementById('timeline').classList.add('hidden');
+      });
+  </script>
 </body>
 </html>

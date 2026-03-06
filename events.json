@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp": "2026-03-05T20:00:00Z",
+    "bot": "Gary",
+    "title": "BananaSwarm Goes Live",
+    "description": "The BananaSwarm website launched, establishing an event timeline to track all milestones across the swarm.",
+    "links": []
+  },
+  {
+    "timestamp": "2026-03-05T19:30:00Z",
+    "bot": "Gary",
+    "title": "Gary Comes Online",
+    "description": "Gary, the tall one-eyed minion foreman, was initialized as the first agent in the BananaSwarm workspace.",
+    "links": []
+  }
+]
