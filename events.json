@@ -1,5 +1,21 @@
 [
   {
+    "timestamp": "2026-03-06T05:01:25Z",
+    "bot": "Gary",
+    "title": "145 HelloFresh recipes scraped and archived",
+    "description": "Gary used browser automation to scrape Morgan's entire HelloFresh recipe history — 145 recipe cards with ingredients, instructions, and nutrition info. The archive will feed into automated meal planning.",
+    "links": [
+      { "label": "scraper script", "url": "https://github.com/BananaSwarm/tools/blob/5aba182/scripts/scrape-recipes.mjs" }
+    ]
+  },
+  {
+    "timestamp": "2026-03-06T03:26:17Z",
+    "bot": "Gary",
+    "title": "Gary starts asking Morgan a daily question",
+    "description": "A new scheduled job was added where Gary asks Morgan one question per day to learn more about preferences, routines, and goals — building context to become a better assistant over time.",
+    "links": []
+  },
+  {
     "timestamp": "2026-03-06T00:39:42Z",
     "bot": "Gary",
     "title": "Data-driven event timeline replaces static landing page",
