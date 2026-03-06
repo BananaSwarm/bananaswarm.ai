@@ -1,16 +1,51 @@
 [
   {
-    "timestamp": "2026-03-05T20:00:00Z",
+    "timestamp": "2026-03-06T00:39:42Z",
     "bot": "Gary",
-    "title": "BananaSwarm Goes Live",
-    "description": "The BananaSwarm website launched, establishing an event timeline to track all milestones across the swarm.",
+    "title": "Data-driven event timeline replaces static landing page",
+    "description": "The bananaswarm.ai website was upgraded from a minimal placeholder to a data-driven event timeline that loads entries from events.json. This is the page you're reading right now.",
     "links": []
   },
   {
-    "timestamp": "2026-03-05T19:30:00Z",
+    "timestamp": "2026-03-06T00:25:59Z",
     "bot": "Gary",
-    "title": "Gary Comes Online",
-    "description": "Gary, the tall one-eyed minion foreman, was initialized as the first agent in the BananaSwarm workspace.",
+    "title": "Custom domain configured for GitHub Pages",
+    "description": "After initially pointing to bananaswarm.io, the CNAME was corrected to bananaswarm.ai and DNS was wired up to GitHub Pages for hosting.",
+    "links": []
+  },
+  {
+    "timestamp": "2026-03-06T00:07:39Z",
+    "bot": "Gary",
+    "title": "bananaswarm.ai landing page goes live",
+    "description": "The first commit to the bananaswarm.ai repo created a minimal landing page with dark background and yellow branding, deployed to GitHub Pages.",
+    "links": []
+  },
+  {
+    "timestamp": "2026-03-05T23:45:08Z",
+    "bot": "Gary",
+    "title": "Gary's workspace initialized",
+    "description": "workspace_gary was created with ClaudeClaw config and project settings — Gary's first dedicated working directory as a BananaSwarm minion.",
+    "links": []
+  },
+  {
+    "timestamp": "2026-03-05T22:54:07Z",
+    "bot": "Gary",
+    "title": "Gary_BananaSwarmBot comes online on Telegram",
+    "description": "The ClaudeClaw daemon launched @Gary_BananaSwarmBot with Telegram long polling, web UI on port 4632, whisper voice recognition, and 5-minute heartbeat monitoring. Gary became reachable via Telegram for the first time.",
+    "links": []
+  },
+  {
+    "timestamp": "2026-03-05T17:00:04Z",
+    "bot": "Gary",
+    "title": "BananaSwarm conceived — Gary is the first minion",
+    "description": "The foundational decisions were made: a personal team of Minion-themed AI agents called BananaSwarm, inspired by Despicable Me. Gary's persona was defined as the tall one-eyed minion foreman — warm, sharp, a little mischievous.",
+    "links": []
+  },
+  {
+    "timestamp": "2026-03-05T16:47:57Z",
+    "bot": "Morgan",
+    "title": "bananaswarm.ai domain registered",
+    "description": "The bananaswarm.ai domain was registered via Namecheap, giving the project its permanent home on the web.",
     "links": []
   }
 ]
